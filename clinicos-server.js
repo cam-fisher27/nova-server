@@ -303,7 +303,7 @@ const server = http.createServer(async (req, res) => {
     try {
       const jwt = (req.headers['authorization']||'').replace('Bearer ','');
       if (!jwt) { json(res, 401, { error: 'No token' }, ch); return; }
-      await validateJwt(jwt); // throws if invalid
+      await getClinicFromJWT(jwt); // throws if invalid
 
       const body = await getBody(req);
       const { email, role, firstName, lastName } = JSON.parse(body);
